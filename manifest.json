@@ -1,0 +1,25 @@
+{
+    "author": "Oshan Deshapriya",
+    "background": {
+        "page": "../html/background.html"
+    },
+    "browser_action": {
+        "default_icon": "images/notification2.png",
+        "default_popup": "html/popup.html"
+    },
+    "icons": {
+        "128": "images/notification_48.png",
+        "16": "images/notification_48.png",
+        "32": "images/notification_48.png"
+    },
+    "description": "This extension allows you to receive notifications of posts published by pages on Facebook.",
+    "manifest_version": 2,
+    "name": "Facebook page notifications",
+    "permissions": [
+        "activeTab",
+        "notifications",
+        "storage",
+        "*://*/*"
+    ],
+    "version": "1.0"
+}

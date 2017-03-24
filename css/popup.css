@@ -1,0 +1,85 @@
+.container {
+    width: 280px;
+    padding-top: 5px;
+}
+
+.navbar-brand {
+    font-size: 1em;
+}
+
+
+.nav-links a:last-child {
+    margin-right: 15px;
+}
+
+.nav-links a{
+    color: #333333;
+    font-size: 1.1em;
+}
+
+
+hr {
+    margin: 5px 0;
+}
+
+.list-group {
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.list-group-item {
+    padding: 10px 0;
+    font-size: 0.85em;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+
+#posts {
+    width: 380px;
+    padding: 0;
+}
+
+ul {
+    list-style: none;
+}
+
+.postList {
+    padding: 0;
+}
+
+.postList li {
+    border-bottom: 1px solid #eeeeee;
+    padding: 5px 5px;
+}
+
+.postList li a{
+    text-decoration: none;
+}
+
+.postList li:last-child{
+    margin-bottom: 20px;
+}
+
+.list-item {
+    display: table-row;
+}
+
+.list-item div{
+    display: table-cell;
+}
+
+.links {
+    padding: 10px 5px;
+    text-align: right;
+}
+
+.profile-pic img{
+    margin: 0 10px 0 5px;
+    width: 32px;
+    height: 32px;
+}
