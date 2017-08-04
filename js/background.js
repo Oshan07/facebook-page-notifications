@@ -9,8 +9,15 @@ var fc = {
     saveData : function(data, callback) {
         chrome.storage.sync.set(data, callback);
     },
+    savePages : function (pages) {
+      localStorage.setItem('pages' , JSON.stringify(pages));
+    },
+    saveSettings: function (settings) {
+        localStorage.setItem('settings' , JSON.stringify(settings));
+    },
     retrieveData: function (keyName, callback) {
-        chrome.storage.sync.get(keyName, callback);
+        // chrome.storage.sync.get(keyName, callback);
+        callback(JSON.parse(localStorage.getItem(keyName)));
     },
     savePage: function (page) {
         if(this.pages[page.id]) {
@@ -18,7 +25,8 @@ var fc = {
             page.postLinkHistory = this.pages[page.id].postLinkHistory;
         }
         this.pages[page.id] = page;
-        this.saveData({"pages": this.pages});
+        // this.saveData({"pages": this.pages});
+        this.savePages(this.pages);
         if(page.enabled) {
             this.activatePageCheck(page);
         }
@@ -26,7 +34,8 @@ var fc = {
     deletePage: function (pageId) {
         this.stopActivePage(pageId);
         delete this.pages[pageId];
-        this.saveData({"pages": this.pages});
+        // this.saveData({"pages": this.pages});
+        this.savePages(this.pages);
     },
     getPageList: function () {
         return this.pages;
@@ -74,11 +83,11 @@ var fc = {
         var page;
         self.pages = {};
         self.stopAllActivePages();
-        this.retrieveData("pages", function (data) {
-            delete data.pages[""];
-            pageIds = Object.keys(data.pages);
+        this.retrieveData("pages", function (pages) {
+            delete pages[""];
+            pageIds = Object.keys(pages);
             pageIds.forEach(function (pageId) {
-                page = new Page(data.pages[pageId]);
+                page = new Page(pages[pageId]);
                 self.pages[pageId] = page;
                 self.activatePageCheck(page);
             });
@@ -197,7 +206,8 @@ Page.prototype.lookForNewPosts = function () {
     if(hasNewPosts) {
         fc.removeOldPostLinks(self);
         fc.pages[self.id] = self;
-        fc.saveData({"pages": fc.pages});
+        // fc.saveData({"pages": fc.pages});
+        self.savePages(self.pages);
         fc.updateBadge(Object.keys(fc.unreadNotifications).length.toString());
     }
 };
@@ -206,8 +216,11 @@ chrome.runtime.onInstalled.addListener(function () {
     var settings = {
         postsCheckInterval : 3000
     };
-    fc.saveData({"pages": fc.pages});
-    fc.saveData({"settings": settings});
+    fc.savePages(fc.pages);
+    fc.saveSettings(settings);
+    // fc.saveData({"pages": fc.pages});
+    
+    // fc.saveData({"settings": settings});
 });
 
 chrome.notifications.onClicked.addListener(function (notificationId) {

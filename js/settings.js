@@ -24,13 +24,14 @@ var displayAlert = function(type, message) {
 };
 
 var scrapePageDataMobile = function(data) {
-    var profilePicData = JSON.parse(/"profilePictureData":(\{.*"videoData":null\})/.exec(data)[1]);
-    var name = /<title id="pageTitle">(.*?)<\/title>/.exec(data)[1];
-    var id = /<link rel="alternate" hreflang="x-default" href="https:\/\/www.facebook.com\/(.*?)\/"/.exec(data)[1];
+    var profilePicData = JSON.parse(/{"editable".+usernameEditDialogProfilePictureURI.*?}/.exec(data)[0]);
+    var name = profilePicData.name;
+    var id = profilePicData.username;
+    console.log(profilePicData);
     return {
         name: name,
         id: id,
-        profilePic: profilePicData.uri,
+        profilePic: profilePicData.usernameEditDialogProfilePictureURI,
         enabled: false,
         postsCheckInterval: 3000,
         mobileVersionEnabled: false
@@ -112,6 +113,7 @@ $(document).ready(function () {
                     loadingGif.addClass("hide");
                 });
             } catch(e){
+                console.log(e);
                 displayAlert("ERROR", "Invalid page URL!");
             }
         });

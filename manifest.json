@@ -19,7 +19,7 @@
         "activeTab",
         "notifications",
         "storage",
-        "*://*/*"
+        "*://*.facebook.com/*"
     ],
     "version": "1.0"
 }
